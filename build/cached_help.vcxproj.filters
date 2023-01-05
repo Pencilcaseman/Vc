@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\Vc\build\CMakeFiles\f2425b934458bb4d73c95e91efd4ba72\help.txt.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\Vc\build\CMakeFiles\64875e94c0557e2235dc8d5626e02631\cached_help.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\Vc\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\dev\Vc\build\CMakeFiles\cached_help" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A28DBBDD-6806-3936-AED9-B05FCC5A77B5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

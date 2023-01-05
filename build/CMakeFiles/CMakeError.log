@@ -1,0 +1,105 @@
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__ftemplate_depth_128 failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_562e0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__ftemplate_depth_128 /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_562e0.dir\Debug\\" /Fd"cmTC_562e0.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -ftemplate-depth=128 C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-ftemplate-depth=128' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_562e0.vcxproj]
+  cmTC_562e0.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_562e0.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__fPIC failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_56aa4.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__fPIC /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_56aa4.dir\Debug\\" /Fd"cmTC_56aa4.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -fPIC C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-fPIC' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_56aa4.vcxproj]
+  cmTC_56aa4.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_56aa4.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__fstack_protector failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_17cc2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__fstack_protector /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_17cc2.dir\Debug\\" /Fd"cmTC_17cc2.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -fstack-protector C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-fstack-protector' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_17cc2.vcxproj]
+  cmTC_17cc2.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_17cc2.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__mavx failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_6f174.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__mavx /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_6f174.dir\Debug\\" /Fd"cmTC_6f174.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -mavx C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-mavx' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_6f174.vcxproj]
+  cmTC_6f174.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_6f174.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__march_core_avx2 failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_d90f0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__march_core_avx2 /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_d90f0.dir\Debug\\" /Fd"cmTC_d90f0.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -march=core-avx2 C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-march=core-avx2' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_d90f0.vcxproj]
+  cmTC_d90f0.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_d90f0.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__mavx2 failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_a697e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__mavx2 /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_a697e.dir\Debug\\" /Fd"cmTC_a697e.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -mavx2 C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-mavx2' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_a697e.vcxproj]
+  cmTC_a697e.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_a697e.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }
+Performing C++ SOURCE FILE Test check_cxx_compiler_flag__mxop failed with the following output:
+Change Dir: C:/dev/Vc/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_5bc5d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.3.1+2badb37d1 for .NET Framework
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.33.31629 for x64
+  src.cxx
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D check_cxx_compiler_flag__mxop /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_5bc5d.dir\Debug\\" /Fd"cmTC_5bc5d.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /wd4290 /wd4800 /wd4996 /wd4244 /wd4146 /wd4227 /wd4722 /wd4748 /errorReport:queue  /d2SSAOptimizer- -mxop C:\dev\Vc\build\CMakeFiles\CMakeTmp\src.cxx
+cl : command line  warning D9002: ignoring unknown option '-mxop' [C:\dev\Vc\build\CMakeFiles\CMakeTmp\cmTC_5bc5d.vcxproj]
+  cmTC_5bc5d.vcxproj -> C:\dev\Vc\build\CMakeFiles\CMakeTmp\Debug\cmTC_5bc5d.exe
+
+
+Source file was:
+#include <cstdio>
+      int main() { return 0; }

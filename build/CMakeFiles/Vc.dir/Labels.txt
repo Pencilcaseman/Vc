@@ -1,0 +1,30 @@
+# Target labels
+ other
+# Source files and their labels
+C:/dev/Vc/src/const.cpp
+C:/dev/Vc/src/cpuid.cpp
+C:/dev/Vc/src/support_x86.cpp
+C:/dev/Vc/build/trigonometric_SSE2.cpp
+C:/dev/Vc/build/trigonometric_SSE3.cpp
+C:/dev/Vc/build/trigonometric_SSSE3.cpp
+C:/dev/Vc/build/trigonometric_SSE4_1.cpp
+C:/dev/Vc/build/trigonometric_AVX.cpp
+C:/dev/Vc/build/trigonometric_AVX2+FMA+BMI2.cpp
+C:/dev/Vc/build/sse_sorthelper_SSE2.cpp
+C:/dev/Vc/build/sse_sorthelper_SSE4_1.cpp
+C:/dev/Vc/build/sse_sorthelper_AVX.cpp
+C:/dev/Vc/build/sse_sorthelper_AVX2+FMA+BMI2.cpp
+C:/dev/Vc/build/avx_sorthelper_AVX.cpp
+C:/dev/Vc/build/avx_sorthelper_AVX2+FMA+BMI2.cpp
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE2.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE3.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSSE3.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE4_1.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_AVX.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_AVX2+FMA+BMI2.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_SSE2.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_SSE4_1.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_AVX.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_AVX2+FMA+BMI2.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/avx_sorthelper_AVX.cpp.rule
+C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/avx_sorthelper_AVX2+FMA+BMI2.cpp.rule

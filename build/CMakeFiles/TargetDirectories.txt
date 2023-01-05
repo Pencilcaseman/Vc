@@ -1,0 +1,10 @@
+C:/dev/Vc/build/CMakeFiles/other.dir
+C:/dev/Vc/build/CMakeFiles/Scalar.dir
+C:/dev/Vc/build/CMakeFiles/SSE.dir
+C:/dev/Vc/build/CMakeFiles/AVX.dir
+C:/dev/Vc/build/CMakeFiles/AVX2.dir
+C:/dev/Vc/build/CMakeFiles/Vc.dir
+C:/dev/Vc/build/CMakeFiles/cached_help.dir
+C:/dev/Vc/build/CMakeFiles/INSTALL.dir
+C:/dev/Vc/build/CMakeFiles/ALL_BUILD.dir
+C:/dev/Vc/build/CMakeFiles/ZERO_CHECK.dir

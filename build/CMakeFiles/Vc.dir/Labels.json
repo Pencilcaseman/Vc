@@ -1,0 +1,94 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/dev/Vc/src/const.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/src/cpuid.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/src/support_x86.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_SSE2.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_SSE3.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_SSSE3.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_SSE4_1.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_AVX.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/trigonometric_AVX2+FMA+BMI2.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/sse_sorthelper_SSE2.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/sse_sorthelper_SSE4_1.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/sse_sorthelper_AVX.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/sse_sorthelper_AVX2+FMA+BMI2.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/avx_sorthelper_AVX.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/avx_sorthelper_AVX2+FMA+BMI2.cpp"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE2.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE3.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSSE3.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_SSE4_1.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_AVX.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/trigonometric_AVX2+FMA+BMI2.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_SSE2.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_SSE4_1.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_AVX.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/sse_sorthelper_AVX2+FMA+BMI2.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/avx_sorthelper_AVX.cpp.rule"
+		},
+		{
+			"file" : "C:/dev/Vc/build/CMakeFiles/f2425b934458bb4d73c95e91efd4ba72/avx_sorthelper_AVX2+FMA+BMI2.cpp.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"other"
+		],
+		"name" : "Vc"
+	}
+}
