@@ -72,6 +72,7 @@ Vc_ALWAYS_INLINE void executeScatter(BitScanLoopT,
                                     const IT &indexes,
                                     typename V::MaskArgument mask)
 {
+    /*
     size_t bits = mask.toInt();
     while (Vc_IS_LIKELY(bits > 0)) {
         size_t i, j;
@@ -83,15 +84,15 @@ Vc_ALWAYS_INLINE void executeScatter(BitScanLoopT,
         mem[indexes[i]] = v[i];
         mem[indexes[j]] = v[j];
     }
+     */
 
-    /* Alternative from Vc::SSE (0.7)
+    // Alternative from Vc::SSE (0.7)
     int bits = mask.toInt();
     while (bits) {
         const int i = _bit_scan_forward(bits);
         bits ^= (1 << i); // btr?
         mem[indexes[i]] = v[i];
     }
-    */
 }
 
 template <typename V, typename MT, typename IT>

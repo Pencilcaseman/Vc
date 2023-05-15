@@ -483,7 +483,8 @@ inline void Vector<T, VectorAbi::Avx>::scatterImplementation(MT *mem, IT &&index
 #ifdef Vc_USE_BUILTIN_VECTOR_TYPES
 template<typename T> Vc_ALWAYS_INLINE Vc_PURE AVX2::Vector<T> Vector<T, VectorAbi::Avx>::operator-() const
 {
-    return VectorType(-d.builtin());
+    // return VectorType(-d.builtin());
+    return Detail::negate(d.v(), std::integral_constant<std::size_t, sizeof(T)>());
 }
 #else
 template<typename T> Vc_ALWAYS_INLINE Vc_PURE AVX2::Vector<T> Vector<T, VectorAbi::Avx>::operator-() const

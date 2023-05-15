@@ -865,9 +865,9 @@ Vc_INTRINSIC __m256d fma(__m256d a, __m256d b, __m256d c, double)
 #else
     using namespace AVX;
     __m256d h1 = and_(a, _mm256_broadcast_sd(reinterpret_cast<const double *>(
-                             &c_general::highMaskDouble)));
+                             &AVX::c_general::highMaskDouble)));
     __m256d h2 = and_(b, _mm256_broadcast_sd(reinterpret_cast<const double *>(
-                             &c_general::highMaskDouble)));
+                             &AVX::c_general::highMaskDouble)));
     const __m256d l1 = _mm256_sub_pd(a, h1);
     const __m256d l2 = _mm256_sub_pd(b, h2);
     const __m256d ll = mul(l1, l2, double());
