@@ -28,8 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef VC_COMMON_SIMDIZE_H_
 #define VC_COMMON_SIMDIZE_H_
 
-#include <tuple>
 #include <array>
+#include <tuple>
 
 #include "../Allocator"
 #include "interleavedmemory.h"
@@ -42,12 +42,12 @@ Automatic type vectorization.
 Struct Vectorization
 ======================
 
-The `Vc::simdize<T>` expression transforms the type \c T to a vectorized type. This requires the type
-\c T to be a class template instance or an arithmetic type.
+The `Vc::simdize<T>` expression transforms the type \c T to a vectorized type. This
+requires the type \c T to be a class template instance or an arithmetic type.
 
 Example:
-First, we declare a class template for a three-dimensional point. The template parameter \c T
-determines the type of the members and is \c float in the scalar (classical) case.
+First, we declare a class template for a three-dimensional point. The template parameter
+\c T determines the type of the members and is \c float in the scalar (classical) case.
 \code
 template <typename T> struct PointTemplate
 {
@@ -67,11 +67,11 @@ template <typename T> struct PointTemplate
 };
 \endcode
 
-In the following we create a type alias for the scalar type, which simply means instantiating
-\c PointTemplate with \c float. The resulting type can then be transformed with \ref simdize.
-\code
-using Point  = PointTemplate<float>;  // A simple struct with three floats and two functions.
-using PointV = Vc::simdize<Point>;    // The vectorization of Point stores three float_v and thus
+In the following we create a type alias for the scalar type, which simply means
+instantiating \c PointTemplate with \c float. The resulting type can then be transformed
+with \ref simdize. \code using Point  = PointTemplate<float>;  // A simple struct with
+three floats and two functions. using PointV = Vc::simdize<Point>;    // The vectorization
+of Point stores three float_v and thus
                                       // float_v::size() Points.
 \endcode
 
@@ -89,22 +89,20 @@ std::cout << l << '\n';
 // float_v::size() == 8
 
 const Point most_distant = extract(pv, (l.max() == l).firstOne());
-std::cout << '(' << most_distant.x << ", " << most_distant.y << ", " << most_distant.z << ")\n";
+std::cout << '(' << most_distant.x << ", " << most_distant.y << ", " << most_distant.z <<
+")\n";
 // prints (7, 8, 9) with float_v::size() == 8
 \endcode
 
 Iterator Vectorization
 ======================
 
-`Vc::simdize<Iterator>` can also be used to turn an iterator type into a new iterator type with `Vc::simdize<Iterator::value_type>` as its `value_type`.
-Note that `Vc::simdize<double>` turns into `Vc::Vector<double>`, which makes it easy to iterate over a given container of builtin arithmetics using `Vc::Vector`.
-\code
-void classic(const std::vector<Point> &data) {
-  using It = std::vector<Point>::const_iterator;
-  const It end = data.end();
-  for (It it = data.begin(); it != end; ++it) {
-    Point x = *it;
-    do_something(x);
+`Vc::simdize<Iterator>` can also be used to turn an iterator type into a new iterator type
+with `Vc::simdize<Iterator::value_type>` as its `value_type`. Note that
+`Vc::simdize<double>` turns into `Vc::Vector<double>`, which makes it easy to iterate over
+a given container of builtin arithmetics using `Vc::Vector`. \code void classic(const
+std::vector<Point> &data) { using It = std::vector<Point>::const_iterator; const It end =
+data.end(); for (It it = data.begin(); it != end; ++it) { Point x = *it; do_something(x);
   }
 }
 
@@ -133,13 +131,13 @@ namespace SimdizeDetail  // {{{
  * \addtogroup Simdize
  * @{
  */
-using std::is_same;
-using std::is_base_of;
-using std::false_type;
-using std::true_type;
-using std::iterator_traits;
 using std::conditional;
+using std::false_type;
+using std::is_base_of;
+using std::is_same;
+using std::iterator_traits;
 using std::size_t;
+using std::true_type;
 
 /**\internal
  * Typelist is a simple helper class for supporting multiple parameter packs in one class
@@ -178,15 +176,13 @@ constexpr Category iteratorCategories(int, ItCat * = nullptr)
 {
     return is_base_of<std::random_access_iterator_tag, ItCat>::value
                ? Category::RandomAccessIterator
-               : is_base_of<std::bidirectional_iterator_tag, ItCat>::value
-                     ? Category::BidirectionalIterator
-                     : is_base_of<std::forward_iterator_tag, ItCat>::value
-                           ? Category::ForwardIterator
-                           : is_base_of<std::output_iterator_tag, ItCat>::value
-                                 ? Category::OutputIterator
-                                 : is_base_of<std::input_iterator_tag, ItCat>::value
-                                       ? Category::InputIterator
-                                       : Category::None;
+           : is_base_of<std::bidirectional_iterator_tag, ItCat>::value
+               ? Category::BidirectionalIterator
+           : is_base_of<std::forward_iterator_tag, ItCat>::value
+               ? Category::ForwardIterator
+           : is_base_of<std::output_iterator_tag, ItCat>::value ? Category::OutputIterator
+           : is_base_of<std::input_iterator_tag, ItCat>::value  ? Category::InputIterator
+                                                                : Category::None;
 }
 /**\internal
  * This overload is selected for pointer types => RandomAccessIterator.
@@ -207,12 +203,10 @@ template <typename T> constexpr Category iteratorCategories(...)
 /**\internal
  * Simple trait to identify whether a type T is a class template or not.
  */
-template <typename T> struct is_class_template : public false_type
-{
+template <typename T> struct is_class_template : public false_type {
 };
 template <template <typename...> class C, typename... Ts>
-struct is_class_template<C<Ts...>> : public true_type
-{
+struct is_class_template<C<Ts...>> : public true_type {
 };
 
 /**\internal
@@ -225,10 +219,9 @@ template <typename T> constexpr Category typeCategory()
             is_same<T, unsigned int>::value || is_same<T, float>::value ||
             is_same<T, double>::value)
                ? Category::ArithmeticVectorizable
-               : iteratorCategories<T>(int()) != Category::None
-                     ? iteratorCategories<T>(int())
-                     : is_class_template<T>::value ? Category::ClassTemplate
-                                                   : Category::None;
+           : iteratorCategories<T>(int()) != Category::None ? iteratorCategories<T>(int())
+           : is_class_template<T>::value                    ? Category::ClassTemplate
+                                                            : Category::None;
 }
 
 /**\internal
@@ -236,22 +229,56 @@ template <typename T> constexpr Category typeCategory()
  * The type \p T either has to provide a std::tuple_size specialization or contain a
  * constexpr tuple_size member.
  */
-template <typename T, size_t TupleSize = std::tuple_size<T>::value>
-constexpr size_t determine_tuple_size()
+
+// template <typename T, size_t TupleSize = std::tuple_size<T>::value>
+// constexpr size_t determine_tuple_size()
+// {
+//     return TupleSize;
+// }
+//
+// template <typename T, size_t TupleSize = T::tuple_size>
+// constexpr size_t determine_tuple_size(size_t = T::tuple_size)
+// {
+//     return TupleSize;
+// }
+
+namespace detail
 {
-    return TupleSize;
-}
-template <typename T, size_t TupleSize = T::tuple_size>
-constexpr size_t determine_tuple_size(size_t = T::tuple_size)
+template <template <typename...> class Trait, typename Enabler, typename... Args>
+struct is_detected : std::false_type {
+};
+
+template <template <typename...> class Trait, typename... Args>
+struct is_detected<Trait, std::void_t<Trait<Args...>>, Args...> : std::true_type {
+};
+}  // namespace detail
+
+template <template <typename...> class Trait, typename... Args>
+using is_detected = typename detail::is_detected<Trait, void, Args...>::type;
+
+template <typename T> using tuple_size_t = typename T::tuple_size;
+
+template <typename T> constexpr bool has_tuple_size = is_detected<tuple_size_t, T>::value;
+
+template <typename T> constexpr size_t determine_tuple_size()
 {
-    return TupleSize;
+    if constexpr (std::is_scalar_v<T>) {
+        return 1;
+    } else if constexpr (has_tuple_size<T>) {
+        return T::tuple_size;
+    } else {
+        return std::tuple_size<T>::value;
+    }
 }
+
+// =============================================
 
 // workaround for MSVC limitation: constexpr functions in template arguments
 // confuse the compiler
-template <typename T> struct determine_tuple_size_
-: public std::integral_constant<size_t, determine_tuple_size<T>()>
-{};
+template <typename T>
+struct determine_tuple_size_
+    : public std::integral_constant<size_t, determine_tuple_size<T>()> {
+};
 
 namespace
 {
@@ -271,16 +298,16 @@ template <typename T> struct The_simdization_for_the_requested_type_is_not_imple
  *                  (via template specialization).
  */
 template <typename T, size_t N, typename MT, Category = typeCategory<T>()>
-struct ReplaceTypes : public The_simdization_for_the_requested_type_is_not_implemented<T>
-{
+struct ReplaceTypes
+    : public The_simdization_for_the_requested_type_is_not_implemented<T> {
 };
 
 /**\internal
  * Specialization of ReplaceTypes that is used for types that should not be transformed by
  * simdize.
  */
-template <typename T, size_t N, typename MT> struct ReplaceTypes<T, N, MT, Category::None>
-{
+template <typename T, size_t N, typename MT>
+struct ReplaceTypes<T, N, MT, Category::None> {
     typedef T type;
 };
 
@@ -319,8 +346,7 @@ struct ReplaceTypes<bool, N, MT, Category::ArithmeticVectorizable>
  */
 template <size_t N>
 struct ReplaceTypes<bool, N, void, Category::ArithmeticVectorizable>
-    : public ReplaceTypes<bool, N, float, Category::ArithmeticVectorizable>
-{
+    : public ReplaceTypes<bool, N, float, Category::ArithmeticVectorizable> {
 };
 
 /**\internal
@@ -336,10 +362,8 @@ struct SubstituteOneByOne;
  * Template specialization for the case that there is at least one type in \p Remaining.
  * The member type \p type recurses via SubstituteOneByOne.
  */
-template <size_t N, typename MT, typename... Replaced, typename T,
-          typename... Remaining>
-struct SubstituteOneByOne<N, MT, Typelist<Replaced...>, T, Remaining...>
-{
+template <size_t N, typename MT, typename... Replaced, typename T, typename... Remaining>
+struct SubstituteOneByOne<N, MT, Typelist<Replaced...>, T, Remaining...> {
 private:
     /**\internal
      * If \p U::size() yields a constant expression convertible to size_t then value will
@@ -364,7 +388,8 @@ private:
      * set to either \c float or \p T, depending on whether \p T is \c bool or not.
      */
     typedef conditional_t<(N != NewN && is_same<MT, void>::value),
-                          conditional_t<is_same<T, bool>::value, float, T>, MT> NewMT;
+                          conditional_t<is_same<T, bool>::value, float, T>, MT>
+        NewMT;
 
 public:
     /**\internal
@@ -383,15 +408,13 @@ template <typename Replaced> struct SubstitutedBase<1, Replaced> {
     using SubstitutedWithValues = C<Replaced, Values...>;
 };
 ///\internal Specialization for two type parameters.
-template <typename R0, typename R1> struct SubstitutedBase<2, R0, R1>
-{
+template <typename R0, typename R1> struct SubstitutedBase<2, R0, R1> {
     template <typename ValueT, template <typename, typename, ValueT...> class C,
               ValueT... Values>
     using SubstitutedWithValues = C<R0, R1, Values...>;
 };
 ///\internal Specialization for three type parameters.
-template <typename R0, typename R1, typename R2> struct SubstitutedBase<3, R0, R1, R2>
-{
+template <typename R0, typename R1, typename R2> struct SubstitutedBase<3, R0, R1, R2> {
     template <typename ValueT, template <typename, typename, typename, ValueT...> class C,
               ValueT... Values>
     using SubstitutedWithValues = C<R0, R1, R2, Values...>;
@@ -406,43 +429,50 @@ template <typename... Replaced> struct SubstitutedBase<4, Replaced...> {
               template <typename, typename, typename, typename, ValueT...> class C,
               ValueT... Values>
     using SubstitutedWithValues = C<Replaced..., Values...>;
-#endif // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
+#endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 };
 ///\internal Specialization for five type parameters.
 template <typename... Replaced> struct SubstitutedBase<5, Replaced...> {
 #ifndef Vc_VALUE_PACK_EXPANSION_IS_BROKEN
-    template <typename ValueT, template <typename, typename, typename, typename, typename,
-                                         ValueT...> class C,
+    template <typename ValueT,
+              template <typename, typename, typename, typename, typename, ValueT...>
+              class C,
               ValueT... Values>
     using SubstitutedWithValues = C<Replaced..., Values...>;
-#endif // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
+#endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 };
 ///\internal Specialization for six type parameters.
 template <typename... Replaced> struct SubstitutedBase<6, Replaced...> {
 #ifndef Vc_VALUE_PACK_EXPANSION_IS_BROKEN
-    template <typename ValueT, template <typename, typename, typename, typename, typename,
-                                         typename, ValueT...> class C,
-              ValueT... Values>
+    template <
+        typename ValueT,
+        template <typename, typename, typename, typename, typename, typename, ValueT...>
+        class C,
+        ValueT... Values>
     using SubstitutedWithValues = C<Replaced..., Values...>;
-#endif // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
+#endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 };
 ///\internal Specialization for seven type parameters.
 template <typename... Replaced> struct SubstitutedBase<7, Replaced...> {
 #ifndef Vc_VALUE_PACK_EXPANSION_IS_BROKEN
-    template <typename ValueT, template <typename, typename, typename, typename, typename,
-                                         typename, typename, ValueT...> class C,
+    template <typename ValueT,
+              template <typename, typename, typename, typename, typename, typename,
+                        typename, ValueT...>
+              class C,
               ValueT... Values>
     using SubstitutedWithValues = C<Replaced..., Values...>;
-#endif // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
+#endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 };
 ///\internal Specialization for eight type parameters.
 template <typename... Replaced> struct SubstitutedBase<8, Replaced...> {
 #ifndef Vc_VALUE_PACK_EXPANSION_IS_BROKEN
-    template <typename ValueT, template <typename, typename, typename, typename, typename,
-                                         typename, typename, typename, ValueT...> class C,
+    template <typename ValueT,
+              template <typename, typename, typename, typename, typename, typename,
+                        typename, typename, ValueT...>
+              class C,
               ValueT... Values>
     using SubstitutedWithValues = C<Replaced..., Values...>;
-#endif // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
+#endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 };
 
 /**\internal
@@ -451,8 +481,7 @@ template <typename... Replaced> struct SubstitutedBase<8, Replaced...> {
  * parameters) after the Typelist parameter.
  */
 template <size_t N_, typename MT, typename Replaced0, typename... Replaced>
-struct SubstituteOneByOne<N_, MT, Typelist<Replaced0, Replaced...>>
-{
+struct SubstituteOneByOne<N_, MT, Typelist<Replaced0, Replaced...>> {
     /**\internal
      * Return type for returning the vector width and list of substituted types
      */
@@ -491,8 +520,7 @@ template <typename Scalar, typename Base, size_t N> class Adapter;
  * needs to be substituted via SubstituteOneByOne.
  */
 template <template <typename...> class C, typename... Ts, size_t N, typename MT>
-struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
-{
+struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate> {
     ///\internal The \p type member of the SubstituteOneByOne instantiation
     using SubstitutionResult =
         typename SubstituteOneByOne<N, MT, Typelist<>, Ts...>::type;
@@ -545,14 +573,16 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
         : public true_type {                                                             \
     };                                                                                   \
     template <template <typename, typename, typename, typename, typename, typename,      \
-                        ValueType_...> class C,                                          \
+                        ValueType_...>                                                   \
+              class C,                                                                   \
               typename T0, typename T1, typename T2, typename T3, typename T4,           \
               typename T5, ValueType_ Value0, ValueType_... Values>                      \
     struct is_class_template<C<T0, T1, T2, T3, T4, T5, Value0, Values...>>               \
         : public true_type {                                                             \
     };                                                                                   \
     template <template <typename, typename, typename, typename, typename, typename,      \
-                        typename, ValueType_...> class C,                                \
+                        typename, ValueType_...>                                         \
+              class C,                                                                   \
               typename T0, typename T1, typename T2, typename T3, typename T4,           \
               typename T5, typename T6, ValueType_ Value0, ValueType_... Values>         \
     struct is_class_template<C<T0, T1, T2, T3, T4, T5, T6, Value0, Values...>>           \
@@ -566,7 +596,8 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
             Substituted;                                                                 \
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<is_same<C<T0, Value0>, Substituted>::value, C<T0, Value0>, \
-                              Adapter<C<T0, Value0>, Substituted, NN>> type;             \
+                              Adapter<C<T0, Value0>, Substituted, NN>>                   \
+            type;                                                                        \
     };                                                                                   \
     template <template <typename, typename, ValueType_> class C, typename T0,            \
               typename T1, ValueType_ Value0, size_t N, typename MT>                     \
@@ -577,7 +608,8 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<is_same<C<T0, T1, Value0>, Substituted>::value,            \
                               C<T0, T1, Value0>,                                         \
-                              Adapter<C<T0, T1, Value0>, Substituted, NN>> type;         \
+                              Adapter<C<T0, T1, Value0>, Substituted, NN>>               \
+            type;                                                                        \
     };                                                                                   \
     template <template <typename, typename, typename, ValueType_> class C, typename T0,  \
               typename T1, typename T2, ValueType_ Value0, size_t N, typename MT>        \
@@ -588,7 +620,8 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<is_same<C<T0, T1, T2, Value0>, Substituted>::value,        \
                               C<T0, T1, T2, Value0>,                                     \
-                              Adapter<C<T0, T1, T2, Value0>, Substituted, NN>> type;     \
+                              Adapter<C<T0, T1, T2, Value0>, Substituted, NN>>           \
+            type;                                                                        \
     }
 #else
 #define Vc_DEFINE_NONTYPE_REPLACETYPES_(ValueType_)                                      \
@@ -618,14 +651,16 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
         : public true_type {                                                             \
     };                                                                                   \
     template <template <typename, typename, typename, typename, typename, typename,      \
-                        ValueType_...> class C,                                          \
+                        ValueType_...>                                                   \
+              class C,                                                                   \
               typename T0, typename T1, typename T2, typename T3, typename T4,           \
               typename T5, ValueType_ Value0, ValueType_... Values>                      \
     struct is_class_template<C<T0, T1, T2, T3, T4, T5, Value0, Values...>>               \
         : public true_type {                                                             \
     };                                                                                   \
     template <template <typename, typename, typename, typename, typename, typename,      \
-                        typename, ValueType_...> class C,                                \
+                        typename, ValueType_...>                                         \
+              class C,                                                                   \
               typename T0, typename T1, typename T2, typename T3, typename T4,           \
               typename T5, typename T6, ValueType_ Value0, ValueType_... Values>         \
     struct is_class_template<C<T0, T1, T2, T3, T4, T5, T6, Value0, Values...>>           \
@@ -636,11 +671,13 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
     struct ReplaceTypes<C<T0, Value0, Values...>, N, MT, Category::ClassTemplate> {      \
         typedef typename SubstituteOneByOne<N, MT, Typelist<>, T0>::type tmp;            \
         typedef typename tmp::template SubstitutedWithValues<ValueType_, C, Value0,      \
-                                                             Values...> Substituted;     \
+                                                             Values...>                  \
+            Substituted;                                                                 \
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<is_same<C<T0, Value0, Values...>, Substituted>::value,     \
                               C<T0, Value0, Values...>,                                  \
-                              Adapter<C<T0, Value0, Values...>, Substituted, NN>> type;  \
+                              Adapter<C<T0, Value0, Values...>, Substituted, NN>>        \
+            type;                                                                        \
     };                                                                                   \
     template <template <typename, typename, ValueType_...> class C, typename T0,         \
               typename T1, ValueType_ Value0, ValueType_... Values, size_t N,            \
@@ -648,7 +685,8 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
     struct ReplaceTypes<C<T0, T1, Value0, Values...>, N, MT, Category::ClassTemplate> {  \
         typedef typename SubstituteOneByOne<N, MT, Typelist<>, T0, T1>::type tmp;        \
         typedef typename tmp::template SubstitutedWithValues<ValueType_, C, Value0,      \
-                                                             Values...> Substituted;     \
+                                                             Values...>                  \
+            Substituted;                                                                 \
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<is_same<C<T0, T1, Value0, Values...>, Substituted>::value, \
                               C<T0, T1, Value0, Values...>,                              \
@@ -662,26 +700,28 @@ struct ReplaceTypes<C<Ts...>, N, MT, Category::ClassTemplate>
                         Category::ClassTemplate> {                                       \
         typedef typename SubstituteOneByOne<N, MT, Typelist<>, T0, T1, T2>::type tmp;    \
         typedef typename tmp::template SubstitutedWithValues<ValueType_, C, Value0,      \
-                                                             Values...> Substituted;     \
+                                                             Values...>                  \
+            Substituted;                                                                 \
         static constexpr auto NN = tmp::N;                                               \
         typedef conditional_t<                                                           \
             is_same<C<T0, T1, T2, Value0, Values...>, Substituted>::value,               \
             C<T0, T1, T2, Value0, Values...>,                                            \
-            Adapter<C<T0, T1, T2, Value0, Values...>, Substituted, NN>> type;            \
+            Adapter<C<T0, T1, T2, Value0, Values...>, Substituted, NN>>                  \
+            type;                                                                        \
     }
 #endif  // Vc_VALUE_PACK_EXPANSION_IS_BROKEN
 Vc_DEFINE_NONTYPE_REPLACETYPES_(bool);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(wchar_t);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(char);
-Vc_DEFINE_NONTYPE_REPLACETYPES_(  signed char);
+Vc_DEFINE_NONTYPE_REPLACETYPES_(signed char);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(unsigned char);
-Vc_DEFINE_NONTYPE_REPLACETYPES_(  signed short);
+Vc_DEFINE_NONTYPE_REPLACETYPES_(signed short);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(unsigned short);
-Vc_DEFINE_NONTYPE_REPLACETYPES_(  signed int);
+Vc_DEFINE_NONTYPE_REPLACETYPES_(signed int);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(unsigned int);
-Vc_DEFINE_NONTYPE_REPLACETYPES_(  signed long);
+Vc_DEFINE_NONTYPE_REPLACETYPES_(signed long);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(unsigned long);
-Vc_DEFINE_NONTYPE_REPLACETYPES_(  signed long long);
+Vc_DEFINE_NONTYPE_REPLACETYPES_(signed long long);
 Vc_DEFINE_NONTYPE_REPLACETYPES_(unsigned long long);
 #undef Vc_DEFINE_NONTYPE_REPLACETYPES_
 
@@ -747,8 +787,9 @@ struct my_tuple_element : std::tuple_element<I, T> {
 
 template <size_t I, class T>
 struct my_tuple_element<
-    I, T, typename std::conditional<
-              true, void, decltype(std::declval<T>().template vc_get_<I>())>::type> {
+    I, T,
+    typename std::conditional<true, void,
+                              decltype(std::declval<T>().template vc_get_<I>())>::type> {
     using type =
         typename std::decay<decltype(std::declval<T>().template vc_get_<I>())>::type;
 };
@@ -796,8 +837,7 @@ template <typename Scalar, typename Base, size_t N> class Adapter : public Base
 private:
     /// helper for the broadcast ctor below, error case
     template <std::size_t... Indexes, int X>
-    Adapter(Vc::index_sequence<Indexes...>, const Scalar,
-            std::integral_constant<int, X>)
+    Adapter(Vc::index_sequence<Indexes...>, const Scalar, std::integral_constant<int, X>)
     {
         static_assert(
             X < 3, "Failed to construct an object of type Base. Neither via "
@@ -868,8 +908,7 @@ public:
     template <typename U, size_t TupleSize = determine_tuple_size_<Scalar>::value,
               typename Seq = Vc::make_index_sequence<TupleSize>,
               typename = enable_if<std::is_convertible<U, Scalar>::value>>
-    Adapter(U &&x_)
-        : Adapter(Seq(), static_cast<const Scalar &>(x_))
+    Adapter(U &&x_) : Adapter(Seq(), static_cast<const Scalar &>(x_))
     {
     }
 
@@ -885,7 +924,7 @@ public:
               typename = typename std::enable_if<
                   !Traits::is_index_sequence<A0>::value &&
                   (sizeof...(Args) > 0 || !std::is_convertible<A0, Scalar>::value)>::type>
-    Adapter(A0 &&arg0_, Args &&... arguments_)
+    Adapter(A0 &&arg0_, Args &&...arguments_)
         : Base(std::forward<A0>(arg0_), std::forward<Args>(arguments_)...)
     {
     }
@@ -893,8 +932,7 @@ public:
     /// perfect forward Base constructors that accept an initializer_list
     template <typename T,
               typename = decltype(Base(std::declval<const std::initializer_list<T> &>()))>
-    Adapter(const std::initializer_list<T> &l_)
-        : Base(l_)
+    Adapter(const std::initializer_list<T> &l_) : Base(l_)
     {
     }
 
@@ -909,7 +947,7 @@ public:
     {
         return Vc::Common::aligned_malloc<alignof(Adapter)>(size);
     }
-    void *operator new[](size_t , void *p_) { return p_; }
+    void *operator new[](size_t, void *p_) { return p_; }
     void operator delete(void *ptr_, size_t) { Vc::Common::free(ptr_); }
     void operator delete(void *, void *) {}
     void operator delete[](void *ptr_, size_t) { Vc::Common::free(ptr_); }
@@ -946,8 +984,8 @@ inline void operator>(
     const Adapter<std::tuple<UTypes...>, std::tuple<UTypesV...>, N> &u) = delete;
 // }}}
 /** @}*/
-}  // namespace SimdizeDetail }}}
-}  // namespace Vc
+}  // namespace SimdizeDetail
+}  // namespace Vc_VERSIONED_NAMESPACE
 
 namespace std  // {{{
 {
@@ -978,12 +1016,11 @@ class allocator<Vc::SimdizeDetail::Adapter<S, T, N>>
     : public Vc::Allocator<Vc::SimdizeDetail::Adapter<S, T, N>>
 {
 public:
-    template <typename U> struct rebind
-    {
+    template <typename U> struct rebind {
         typedef std::allocator<U> other;
     };
 };
-}  // namespace std }}}
+}  // namespace std
 
 namespace Vc_VERSIONED_NAMESPACE
 {
@@ -1009,22 +1046,24 @@ inline void assign_impl(Adapter<S, T, N> &a, size_t i, const S &x,
 {
     const std::tuple<decltype(decay_workaround(get_dispatcher<Indexes>(x)))...> tmp(
         decay_workaround(get_dispatcher<Indexes>(x))...);
-    auto &&unused = {(get_dispatcher<Indexes>(a)[i] = get_dispatcher<Indexes>(tmp), 0)...};
-    if (&unused == &unused) {}
+    auto &&unused = {
+        (get_dispatcher<Indexes>(a)[i] = get_dispatcher<Indexes>(tmp), 0)...};
+    if (&unused == &unused) {
+    }
 }  // }}}
 // construct (parens, braces, double-braces) {{{
 template <class S, class... Args>
-S construct(std::integral_constant<int, 0>, Args &&... args)
+S construct(std::integral_constant<int, 0>, Args &&...args)
 {
     return S(std::forward<Args>(args)...);
 }
 template <class S, class... Args>
-S construct(std::integral_constant<int, 1>, Args &&... args)
+S construct(std::integral_constant<int, 1>, Args &&...args)
 {
     return S{std::forward<Args>(args)...};
 }
 template <class S, class... Args>
-S construct(std::integral_constant<int, 2>, Args &&... args)
+S construct(std::integral_constant<int, 2>, Args &&...args)
 {
     return S{{std::forward<Args>(args)...}};
 }
@@ -1042,7 +1081,7 @@ inline S extract_impl(const Adapter<S, T, N> &a, size_t i, Vc::index_sequence<In
         preferred_construction<S, decltype(decay_workaround(
                                       get_dispatcher<Indexes>(a)[i]))...>(),
         decay_workaround(get_dispatcher<Indexes>(a)[i])...);
-    //return S(get_dispatcher<Indexes>(tmp)...);
+    // return S(get_dispatcher<Indexes>(tmp)...);
 }
 // }}}
 // shifted_impl {{{
@@ -1051,8 +1090,10 @@ inline Adapter<S, T, N> shifted_impl(const Adapter<S, T, N> &a, int shift,
                                      Vc::index_sequence<Indexes...>)
 {
     Adapter<S, T, N> r;
-    auto &&unused = {(get_dispatcher<Indexes>(r) = get_dispatcher<Indexes>(a).shifted(shift), 0)...};
-    if (&unused == &unused) {}
+    auto &&unused = {
+        (get_dispatcher<Indexes>(r) = get_dispatcher<Indexes>(a).shifted(shift), 0)...};
+    if (&unused == &unused) {
+    }
     return r;
 }
 // }}}
@@ -1084,7 +1125,8 @@ inline void swap_impl(Adapter<S, T, N> &a, std::size_t i, S &x,
         tmp{decay_workaround(get_dispatcher<Indexes>(a_const)[i])...};
     auto &&unused = {(get_dispatcher<Indexes>(a)[i] = get_dispatcher<Indexes>(x), 0)...};
     auto &&unused2 = {(get_dispatcher<Indexes>(x) = get_dispatcher<Indexes>(tmp), 0)...};
-    if (&unused == &unused2) {}
+    if (&unused == &unused2) {
+    }
 }
 template <typename S, typename T, std::size_t N, std::size_t... Indexes>
 inline void swap_impl(Adapter<S, T, N> &a, std::size_t i, Adapter<S, T, N> &b,
@@ -1094,9 +1136,12 @@ inline void swap_impl(Adapter<S, T, N> &a, std::size_t i, Adapter<S, T, N> &b,
     const auto &b_const = b;
     const std::tuple<decltype(decay_workaround(get_dispatcher<Indexes>(a_const)[0]))...>
         tmp{decay_workaround(get_dispatcher<Indexes>(a_const)[i])...};
-    auto &&unused = {(get_dispatcher<Indexes>(a)[i] = get_dispatcher<Indexes>(b_const)[j], 0)...};
-    auto &&unused2 = {(get_dispatcher<Indexes>(b)[j] = get_dispatcher<Indexes>(tmp), 0)...};
-    if (&unused == &unused2) {}
+    auto &&unused = {
+        (get_dispatcher<Indexes>(a)[i] = get_dispatcher<Indexes>(b_const)[j], 0)...};
+    auto &&unused2 = {
+        (get_dispatcher<Indexes>(b)[j] = get_dispatcher<Indexes>(tmp), 0)...};
+    if (&unused == &unused2) {
+    }
 }
 // }}}
 // swap(Adapter) {{{
@@ -1168,7 +1213,7 @@ inline void load_interleaved_impl(Vc::index_sequence<I...>, Adapter<S, T, N> &a,
                                   const S *mem)
 {
     const InterleavedMemoryWrapper<S, decltype(decay_workaround(get_dispatcher<0>(a)))>
-    wrapper(const_cast<S *>(mem));
+        wrapper(const_cast<S *>(mem));
     Vc::tie(get_dispatcher<I>(a)...) = wrapper[0];
 }
 // }}}
@@ -1191,19 +1236,13 @@ template <typename A> class Interface  // {{{
 public:
     Interface(reference aa) : a(aa) {}
 
-    Scalar<A> operator[](size_t i)
-    {
-        return {a, i};
-    }
+    Scalar<A> operator[](size_t i) { return {a, i}; }
     typename A::scalar_type operator[](size_t i) const
     {
         return extract_impl(a, i, IndexSeq());
     }
 
-    A shifted(int amount) const
-    {
-        return shifted_impl(a, amount, IndexSeq());
-    }
+    A shifted(int amount) const { return shifted_impl(a, amount, IndexSeq()); }
 
     void load(const typename A::scalar_type *mem) { load_interleaved(*this, mem); }
     void store(typename A::scalar_type *mem) { store_interleaved(*this, mem); }
@@ -1425,7 +1464,8 @@ public:
         }
     }
 
-    /// Construct the Pointer object from the values returned by the scalar iterator \p it.
+    /// Construct the Pointer object from the values returned by the scalar iterator \p
+    /// it.
     Pointer(const T &it) : data(fromIterator<T, value_vector>(it)), begin_iterator(it) {}
 
 private:
@@ -1654,10 +1694,7 @@ public:
      * other without ever comparing equal. In debug builds (when NDEBUG is not
      * defined) an assertion tries to locate such passing iterators.
      */
-    bool operator!=(const Iterator &rhs) const
-    {
-        return !operator==(rhs);
-    }
+    bool operator!=(const Iterator &rhs) const { return !operator==(rhs); }
 
     pointer operator->() { return scalar_it; }
 
@@ -1823,7 +1860,7 @@ Iterator<T, N, M, V, Size, std::random_access_iterator_tag> operator+(
     return i + n;
 }
 
-}  // namespace IteratorDetails }}}
+}  // namespace IteratorDetails
 
 /**\internal
  *
@@ -1834,18 +1871,15 @@ Iterator<T, N, M, V, Size, std::random_access_iterator_tag> operator+(
  * \tparam MT The base type to use for mask types. Ignored for this specialization.
  */
 template <typename T, size_t N, typename MT>
-struct ReplaceTypes<T, N, MT, Category::ForwardIterator>
-{
+struct ReplaceTypes<T, N, MT, Category::ForwardIterator> {
     using type = IteratorDetails::Iterator<T, N>;
 };
 template <typename T, size_t N, typename MT>
-struct ReplaceTypes<T, N, MT, Category::BidirectionalIterator>
-{
+struct ReplaceTypes<T, N, MT, Category::BidirectionalIterator> {
     using type = IteratorDetails::Iterator<T, N>;
 };
 template <typename T, size_t N, typename MT>
-struct ReplaceTypes<T, N, MT, Category::RandomAccessIterator>
-{
+struct ReplaceTypes<T, N, MT, Category::RandomAccessIterator> {
     using type = IteratorDetails::Iterator<T, N>;
 };
 
@@ -1854,29 +1888,34 @@ struct ReplaceTypes<T, N, MT, Category::RandomAccessIterator>
  */
 template <Vc::Operator Op, typename S, typename T, std::size_t N, typename M, typename U,
           std::size_t Offset>
-Vc_INTRINSIC Vc::enable_if<(Offset >= determine_tuple_size_<S>::value && M::Size == N), void>
+Vc_INTRINSIC
+    Vc::enable_if<(Offset >= determine_tuple_size_<S>::value && M::Size == N), void>
     conditional_assign(Adapter<S, T, N> &, const M &, const U &)
 {
 }
 template <Vc::Operator Op, typename S, typename T, std::size_t N, typename M, typename U,
           std::size_t Offset = 0>
-Vc_INTRINSIC Vc::enable_if<(Offset < determine_tuple_size_<S>::value && M::Size == N), void>
+Vc_INTRINSIC
+    Vc::enable_if<(Offset < determine_tuple_size_<S>::value && M::Size == N), void>
     conditional_assign(Adapter<S, T, N> &lhs, const M &mask, const U &rhs)
 {
     using V = typename std::decay<decltype(get_dispatcher<Offset>(lhs))>::type;
     using M2 = typename V::mask_type;
-    conditional_assign<Op>(get_dispatcher<Offset>(lhs), simd_cast<M2>(mask), get_dispatcher<Offset>(rhs));
+    conditional_assign<Op>(get_dispatcher<Offset>(lhs), simd_cast<M2>(mask),
+                           get_dispatcher<Offset>(rhs));
     conditional_assign<Op, S, T, N, M, U, Offset + 1>(lhs, mask, rhs);
 }
 template <Vc::Operator Op, typename S, typename T, std::size_t N, typename M,
           std::size_t Offset>
-Vc_INTRINSIC Vc::enable_if<(Offset >= determine_tuple_size_<S>::value && M::Size == N), void>
+Vc_INTRINSIC
+    Vc::enable_if<(Offset >= determine_tuple_size_<S>::value && M::Size == N), void>
     conditional_assign(Adapter<S, T, N> &, const M &)
 {
 }
 template <Vc::Operator Op, typename S, typename T, std::size_t N, typename M,
           std::size_t Offset = 0>
-Vc_INTRINSIC Vc::enable_if<(Offset < determine_tuple_size_<S>::value && M::Size == N), void>
+Vc_INTRINSIC
+    Vc::enable_if<(Offset < determine_tuple_size_<S>::value && M::Size == N), void>
     conditional_assign(Adapter<S, T, N> &lhs, const M &mask)
 {
     using V = typename std::decay<decltype(get_dispatcher<Offset>(lhs))>::type;
@@ -1944,12 +1983,12 @@ using simdize = SimdizeDetail::simdize<T, N, MT>;
         tuple_size = std::tuple_size<decltype(std::make_tuple MEMBERS_)>::value          \
     }
 // }}}
-}  // namespace Vc
+}  // namespace Vc_VERSIONED_NAMESPACE
 
 namespace std  // {{{
 {
 using Vc::SimdizeDetail::swap;
-}  // namespace std }}}
+}  // namespace std
 
 #endif  // VC_COMMON_SIMDIZE_H_
 
