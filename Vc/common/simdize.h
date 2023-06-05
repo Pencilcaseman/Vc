@@ -1,6 +1,8 @@
 /*  This file is part of the Vc library. {{{
 Copyright © 2014-2015 Matthias Kretz <kretz@kde.org>
 
+Modified by Toby Davis (https://github.com/Pencilcaseman/)
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
     * Redistributions of source code must retain the above copyright
@@ -242,6 +244,7 @@ template <typename T> constexpr Category typeCategory()
 //     return TupleSize;
 // }
 
+#if defined(_MSC_VER)
 namespace detail
 {
 template <template <typename...> class Trait, typename Enabler, typename... Args>
@@ -270,6 +273,21 @@ template <typename T> constexpr size_t determine_tuple_size()
         return std::tuple_size<T>::value;
     }
 }
+
+#else
+
+template <typename T, size_t TupleSize = std::tuple_size<T>::value>
+constexpr size_t determine_tuple_size()
+{
+    return TupleSize;
+}
+template <typename T, size_t TupleSize = T::tuple_size>
+constexpr size_t determine_tuple_size(size_t = T::tuple_size)
+{
+    return TupleSize;
+}
+
+#endif // MSVC_VER
 
 // =============================================
 
@@ -1968,6 +1986,21 @@ using simdize = SimdizeDetail::simdize<T, N, MT>;
  *
  * \note You must use this macros in the public section of a class.
  */
+//#define Vc_SIMDIZE_INTERFACE(MEMBERS_)                                                   \
+//    template <std::size_t N_>                                                            \
+//    inline auto vc_get_()->decltype(std::get<N_>(std::tie MEMBERS_))                     \
+//    {                                                                                    \
+//        return std::get<N_>(std::tie MEMBERS_);                                          \
+//    }                                                                                    \
+//    template <std::size_t N_>                                                            \
+//    inline auto vc_get_() const->decltype(std::get<N_>(std::tie MEMBERS_))               \
+//    {                                                                                    \
+//        return std::get<N_>(std::tie MEMBERS_);                                          \
+//    }                                                                                    \
+//    enum : std::size_t {                                                                 \
+//        tuple_size = std::tuple_size<decltype(std::make_tuple MEMBERS_)>::value          \
+//    }
+
 #define Vc_SIMDIZE_INTERFACE(MEMBERS_)                                                   \
     template <std::size_t N_>                                                            \
     inline auto vc_get_()->decltype(std::get<N_>(std::tie MEMBERS_))                     \
@@ -1979,9 +2012,9 @@ using simdize = SimdizeDetail::simdize<T, N, MT>;
     {                                                                                    \
         return std::get<N_>(std::tie MEMBERS_);                                          \
     }                                                                                    \
-    enum : std::size_t {                                                                 \
-        tuple_size = std::tuple_size<decltype(std::make_tuple MEMBERS_)>::value          \
-    }
+    static constexpr size_t tuple_size =                                                 \
+        std::tuple_size<decltype(std::make_tuple MEMBERS_)>::value
+
 // }}}
 }  // namespace Vc_VERSIONED_NAMESPACE
 
